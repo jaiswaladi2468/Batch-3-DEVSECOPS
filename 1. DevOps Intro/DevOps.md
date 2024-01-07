@@ -1,8 +1,7 @@
 # DevOps Intro
 DevOps, short for Development and Operations, is a set of practices and cultural philosophies aimed at improving collaboration and communication between software development (Dev) and IT operations (Ops) teams. The goal is to enhance the efficiency and effectiveness of the software development and delivery process. DevOps emphasizes automation, continuous integration, continuous delivery, and close collaboration between different teams involved in the software development lifecycle. 
 
-## K
-ey aspects of DevOps include:
+## Key aspects of DevOps include:
 
 1. **Automation:**
    - **Code Integration:** Automating the process of integrating code changes ensures that developers can frequently merge their work into a shared repository, promoting collaboration and reducing integration challenges.
