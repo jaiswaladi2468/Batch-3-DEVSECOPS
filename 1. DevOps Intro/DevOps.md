@@ -151,6 +151,8 @@ This detailed DevOps flow represents a continuous and iterative cycle, with feed
 
 ## Complete CI/CD Pipeline
 
+![Alt Text](https://github.com/jaiswaladi2468/Batch-3-DEVSECOPS/blob/main/1.%20DevOps%20Intro/cicd-1.drawio.png)
+
 Comprehensive pipeline ensures that code changes go through various stages of testing and analysis before being deployed, reducing the likelihood of issues in production. Let's summarize the key steps in this pipeline:
 
 1. **Jira Ticket Assigned:**
