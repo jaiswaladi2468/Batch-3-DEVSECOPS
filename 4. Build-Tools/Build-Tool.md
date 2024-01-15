@@ -165,7 +165,7 @@ For example, if you have a custom plugin named `my-plugin` with a goal named `cu
 mvn my-plugin:custom-goal
 ```
 
-# Maven Lifecycle
+### Maven Lifecycle
 
 Maven follows a series of defined build phases and build goals to manage the lifecycle of a project. This build lifecycle dictates the sequence of tasks that are executed during the build process. Understanding the Maven build lifecycle is essential for effectively building, testing, and packaging projects. The build lifecycle is divided into three primary phases: 
 
@@ -202,7 +202,7 @@ clean                    validate                  pre-site
                          deploy
 ```
 
-# Maven Arguments (-Dproperty=value)
+### Maven Arguments (-Dproperty=value)
 
 In Maven, command-line arguments can be passed using the `-D` flag to set system properties and configuration options. These arguments are often used to customize Maven's behavior during a build process. Here are some commonly used `-D` arguments for Maven:
 
