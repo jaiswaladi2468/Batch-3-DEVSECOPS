@@ -45,9 +45,7 @@ Here's a breakdown of the key directories and files in a Maven-based project:
 
 Remember that Maven follows a convention-over-configuration approach, which means it enforces certain standard practices to make the build process and project management more streamlined. This structure helps Maven identify where to find source code, resources, tests, and how to package them into the final artifacts.
 
-# MAVEN 
-
-Maven is a popular build automation and project management tool used primarily in Java projects, although it can be applied to projects in other languages too. It simplifies the process of managing dependencies, compiling code, running tests, and packaging applications. In this explanation, I'll provide an overview of Maven concepts, along with examples and commands to illustrate each step.
+### Overview of Maven concepts, along with examples and commands to illustrate each step.
 
 **1. Project Creation:**
 To create a new Maven project, you can use the `mvn archetype:generate` command and select a suitable archetype. An archetype is a template for creating a specific type of project. For example:
