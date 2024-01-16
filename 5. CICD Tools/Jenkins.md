@@ -95,7 +95,7 @@ sudo snap alias jenkins.jenkins jenkins
 jenkins
 ```
 
-**5. Using Automated Script:**
+**3. Using Automated Script:**
 
 Some community members have created scripts to automate the Jenkins installation process. Use this option with caution and ensure you trust the source of the script.
 
