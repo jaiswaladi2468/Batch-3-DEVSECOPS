@@ -61,7 +61,7 @@ Jenkins provides an official Debian/Ubuntu package repository, making it easy to
 sudo apt update
 
 # Install Java (required for Jenkins)
-sudo apt install openjdk-11-jdk
+sudo apt install openjdk-17-jdk openjdk-17-jre
 
 # Add Jenkins repository key and source list
 wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
