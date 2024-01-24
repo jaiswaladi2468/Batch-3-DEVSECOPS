@@ -54,7 +54,7 @@ In summary, Nexus 3 is a powerful artifact repository manager that plays a cruci
 # STEPS
 
 ```markdown
-# NEXUS3 INSTALLATION
+# NEXUS3 INSTALLATION by shell commands
 
 sudo apt install openjdk-8-jdk -y
 
@@ -74,6 +74,50 @@ in ""  put nexus  --->"nexus"
 
 /opt/nexus-3.59.0-01/bin/nexus start
 ```
+
+### Installation usinh Docker (Easy Way)
+
+To install Nexus 3 using Docker and retrieve the initial admin password, you can use the following shell commands:
+
+### 1. Install Nexus 3 Using Docker:
+
+```bash
+docker run -d -p 8081:8081 --name nexus sonatype/nexus3
+```
+
+This command pulls the Nexus 3 Docker image from the official Sonatype repository and runs it as a detached container (`-d`). It exposes the Nexus web interface on host port 8081 (`-p 8081:8081`) and names the container "nexus."
+
+### 2. Retrieve the Initial Admin Password:
+
+Wait for Nexus to start, and then retrieve the initial admin password. You can do this by checking the logs or using the following command:
+
+```bash
+docker ps
+# note down container_ID
+docker exec -it container_ID /bin/bash
+# cat sonatype-work/nexus3/admin.password
+```
+
+This command uses `docker exec` to execute a command inside the running "nexus" container. The command `cat /nexus-data/admin.password` prints the initial admin password to the terminal.
+
+### 3. Access Nexus 3 Web Interface:
+
+Open a web browser and go to `http://localhost:8081`. Log in with the username "admin" and the password retrieved in the previous step.
+
+**Note:** Make sure to wait for Nexus 3 to fully initialize before attempting to retrieve the admin password.
+
+### Cleanup (Optional):
+
+If you want to stop and remove the Nexus 3 Docker container after testing, you can use the following commands:
+
+```bash
+docker stop nexus
+docker rm nexus
+```
+
+These commands stop and remove the "nexus" container.
+
+Remember to adjust the Docker commands based on your specific requirements and environment. Additionally, ensure that Docker is installed and configured on your system before running these commands.
 
 ## ADD in POM
 
