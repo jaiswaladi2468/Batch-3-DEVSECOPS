@@ -282,17 +282,7 @@ pipeline {
 
         stage('Quality Gate Check') {
             steps {
-                timeout(time: 10, unit: 'MINUTES') {
-                    script {
-                        def qualityGateStatus = waitForQualityGate()
-
-                        if (qualityGateStatus == 'OK') {
-                            echo 'Quality gate passed! Proceeding with the pipeline.'
-                        } else {
-                            error 'Quality gate failed. Stopping the pipeline.'
-                        }
-                    }
-                }
+               waitForQualityGate abortPipeline: false
             }
         }
         
