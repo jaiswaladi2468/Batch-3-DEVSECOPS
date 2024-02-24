@@ -1,3 +1,5 @@
+
+```groovy
 pipeline {
     agent any
 
@@ -303,3 +305,4 @@ pipeline {
         cleanWs()
     }
 }
+```
