@@ -1,84 +1,67 @@
-Certainly! The provided script is a series of commands for setting up Kubernetes on both the master and worker nodes. Let's go through it line by line:
+#  Setup K8-Cluster using kubeadm [K8 Version-->1.28.1]
 
-### On Both Master and Worker Nodes:
+### 1. Update System Packages [On Master & Worker Node]
 
-1. **Update the package list:**
-   ```bash
-   sudo apt-get update -y
-   ```
-   - This command updates the local package list on the system.
+```bash
+sudo apt-get update
+```
 
-2. **Install Docker:**
-   ```bash
-   sudo apt-get install docker.io -y
-   ```
-   - Installs Docker, a containerization platform.
+### 2. Install Docker[On Master & Worker Node]
 
-3. **Restart Docker service:**
-   ```bash
-   sudo service docker restart
-   ```
-   - Restarts the Docker service to apply any changes made during the installation.
+```bash
+sudo apt install docker.io -y
+sudo chmod 666 /var/run/docker.sock
+```
 
-4. **Add Kubernetes apt-key:**
-   ```bash
-   sudo curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
-   ```
-   - Fetches the GPG key for the Kubernetes packages and adds it to the keyring.
+### 3. Install Required Dependencies for Kubernetes[On Master & Worker Node]
 
-5. **Add Kubernetes repository:**
-   ```bash
-   echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" >/etc/apt/sources.list.d/kubernetes.list
-   ```
-   - Adds the Kubernetes repository to the system's package sources.
+```bash
+sudo apt-get install -y apt-transport-https ca-certificates curl gnupg
+sudo mkdir -p -m 755 /etc/apt/keyrings
+```
 
-6. **Update the package list again:**
-   ```bash
-   sudo apt-get update
-   ```
-   - Updates the package list to include the newly added Kubernetes repository.
+### 4. Add Kubernetes Repository and GPG Key[On Master & Worker Node]
 
-7. **Install specific versions of Kubeadm, Kubectl, and Kubelet:**
-   ```bash
-   sudo apt install kubeadm=1.20.0-00 kubectl=1.20.0-00 kubelet=1.20.0-00 -y
-   ```
-   - Installs specific versions of Kubeadm, Kubectl, and Kubelet, in this case, version 1.20.0-00.
+```bash
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+```
 
-### Step 2 - On Master Node:
+### 5. Update Package List[On Master & Worker Node]
 
-8. **Initialize the Kubernetes cluster with a specified pod network CIDR:**
-   ```bash
-   kubeadm init --pod-network-cidr=192.168.0.0/16
-   ```
-   - Initializes the Kubernetes master node, specifying the pod network CIDR for communication between pods.
+```bash
+sudo apt update
+```
 
-### Step 3 - On Master Node:
+### 6. Install Kubernetes Components[On Master & Worker Node]
 
-9. **Create a directory for kubeconfig and copy the admin.conf file:**
-   ```bash
-   mkdir -p $HOME/.kube
-   sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-   ```
-   - Creates a directory for storing kubeconfig files and copies the admin.conf file to the appropriate location.
+```bash
+sudo apt install -y kubeadm=1.28.1-1.1 kubelet=1.28.1-1.1 kubectl=1.28.1-1.1
+```
 
-10. **Set ownership for the kubeconfig file:**
-    ```bash
-    sudo chown $(id -u):$(id -g) $HOME/.kube/config
-    ```
-    - Ensures that the user has ownership of the kubeconfig file.
+### 7. Initialize Kubernetes Master Node [On MasterNode]
 
-### Step 4 - On Master Node:
+```bash
+sudo kubeadm init --pod-network-cidr=10.244.0.0/16
+```
 
-11. **Apply Calico network plugin:**
-    ```bash
-    kubectl apply -f https://docs.projectcalico.org/v3.20/manifests/calico.yaml
-    ```
-    - Applies the Calico network plugin manifest to enable networking within the Kubernetes cluster.
+### 8. Configure Kubernetes Cluster [On MasterNode]
 
-12. **Apply Ingress-Nginx controller:**
-    ```bash
-    kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.49.0/deploy/static/provider/baremetal/deploy.yaml
-    ```
-    - Applies the Ingress-Nginx controller manifest for handling Ingress resources in the cluster.
+```bash
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+```
 
-These steps collectively set up a Kubernetes cluster with Calico networking and Ingress-Nginx controller on the master node. The specific versions of Kubeadm, Kubectl, and Kubelet are installed, and Docker is used for containerization.
+### 9. Deploy Networking Solution (Calico) [On MasterNode]
+
+```bash
+kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
+```
+
+### 10. Deploy Ingress Controller (NGINX) [On MasterNode]
+
+```bash
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.49.0/deploy/static/provider/baremetal/deploy.yaml
+```
+
